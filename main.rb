@@ -15,11 +15,9 @@ until gameOver do
     
     question = Question.new
     question.ask(player.id)
-    answer = question.answer
-    question.verify(answer) ? player.gainPoints : player.loseLife
+    question.verify(question.answer) ? player.gainPoints : player.loseLife
 
     MainGame.endTurnScores(players)
-
     gameOver = MainGame.gameOver? player
     break if gameOver
   end
