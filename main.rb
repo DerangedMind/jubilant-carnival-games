@@ -1,6 +1,5 @@
 require './Game'
 require './Player'
-require './Turn'
 require './Question'
 
 MainGame = Game.new
@@ -12,25 +11,21 @@ gameOver = false
 
 until gameOver do
   players.each do |player|
-    puts "----- Player #{player.id}'s TURN -----"
-    thisTurn = Turn.new(MainGame.nextTurn)
+    puts "===== Player #{player.id}'s TURN ====="
     
     question = Question.new
-    question.askQuestion(player.id)
+    question.ask(player.id)
+    answer = question.answer
+    question.verify(answer) ? player.gainPoints : player.loseLife
 
-    answer = thisTurn.newTurn(question)
-    question.verifyAnswer(answer) ? player.gainPoints: player.loseLife
-
-    players.each do |p| 
-      puts "Player #{p.id}: #{p.lives}/3 lives - #{p.points}"
-    end
+    MainGame.endTurnScores(players)
 
     gameOver = MainGame.gameOver? player
     break if gameOver
   end
 end
 
-puts "----- ---------- -----"
+puts "======================"
 
 MainGame.showWinner(players)
 

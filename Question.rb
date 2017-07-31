@@ -16,11 +16,16 @@ class Question
     @answer = @num1 + @num2
   end
 
-  def askQuestion(player_id)
+  def ask(player_id)
     puts "What does #{@num1} plus #{@num2} equal?"
   end
 
-  def verifyAnswer(input)
+  def answer
+    print "> "
+    gets.chomp
+  end
+
+  def verify(input)
     @answer == input.to_i
   end
 end
